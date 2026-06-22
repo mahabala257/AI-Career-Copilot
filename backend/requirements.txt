@@ -1,0 +1,58 @@
+# ── Web Framework ─────────────────────────────────────────────────────────────
+fastapi==0.115.0
+uvicorn[standard]==0.30.6          # ASGI server with WebSocket + reload support
+
+# ── Database ───────────────────────────────────────────────────────────────────
+sqlalchemy==2.0.35                 # Async ORM (Core + ORM)
+asyncpg==0.30.0                    # Async PostgreSQL driver (used by SQLAlchemy)
+psycopg2-binary==2.9.10            # Sync PostgreSQL driver required by Alembic migrations
+alembic==1.13.3                    # Database migrations
+
+# ── Validation & Settings ──────────────────────────────────────────────────────
+pydantic==2.9.2                    # Request/response validation
+pydantic-settings==2.5.2           # .env file loading into Settings class
+pydantic[email]==2.9.2             # Email validation for user registration
+
+# ── Authentication ─────────────────────────────────────────────────────────────
+python-jose[cryptography]==3.3.0   # JWT encode/decode
+passlib[bcrypt]==1.7.4             # Password hashing (bcrypt)
+
+# ── File Handling ──────────────────────────────────────────────────────────────
+python-multipart==0.0.12           # Form data + file upload parsing
+aiofiles==24.1.0                   # Async file I/O for uploads
+
+# ── PDF Parsing ────────────────────────────────────────────────────────────────
+PyMuPDF==1.25.5                  # Resume PDF text extraction (fitz)
+
+# ── AI / LLM ──────────────────────────────────────────────────────────────────
+langchain==0.3.20                  # LLM abstraction layer
+langchain-google-genai==2.1.4     # Gemini integration
+langchain-groq==0.2.1              # Groq integration (fast inference)
+langchain-openai==0.2.14           # BUG-FIX: fallback embedding provider for when
+                                    # Gemini "AQ." API keys are rejected (see
+                                    # app/rag/chromadb_client.py FallbackEmbeddingFunction)
+langgraph==0.2.73                  # Multi-agent state machine orchestration
+langgraph-checkpoint-postgres==2.0.9  # BUG-05 FIX: persistent LangGraph checkpoints via PostgreSQL
+
+# ── RAG / Vector Store ─────────────────────────────────────────────────────────
+# BUG-FIX (Windows/Python 3.13): chromadb<1.0 depends on chroma-hnswlib==0.7.6,
+# which has no prebuilt wheel for cp313 on Windows — pip falls back to compiling
+# it from source, which fails even with VS Build Tools installed (missing/
+# misconfigured Windows SDK headers: float.h, io.h). chromadb>=1.0 replaced the
+# hnswlib C++ extension with a Rust-based index shipped as a universal
+# cp39-abi3 wheel, so nothing needs to compile on Windows. The PersistentClient /
+# get_or_create_collection / collection.query/upsert/count API used in this
+# codebase (app/rag/chromadb_client.py) is unchanged between 0.5.x and 1.x.
+chromadb==1.5.9                    # Local vector database
+# sentence-transformers removed (ISSUE-17): Gemini embeddings are used instead.
+# It was never called — only imported transitively. Removing saves ~800 MB from image.
+
+# ── Monitoring ─────────────────────────────────────────────────────────────────
+langfuse==2.36.2                   # LLM observability + tracing
+
+# ── HTTP Client (for external APIs) ───────────────────────────────────────────
+httpx==0.27.2                      # Async HTTP client
+
+# ── Utilities ──────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1               # Load .env in non-Pydantic contexts
+tenacity==8.3.0                    # Retry logic for LLM calls

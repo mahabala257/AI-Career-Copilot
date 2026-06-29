@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262 83% 68%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262 83% 68%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+  html { scroll-behavior: smooth; }
+
+  /* Themed, slim scrollbars */
+  * { scrollbar-width: thin; scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent; }
+  *::-webkit-scrollbar { width: 8px; height: 8px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--muted-foreground) / 0.5); }
+
+  /* Brand-coloured text selection */
+  ::selection { background: hsl(var(--primary) / 0.25); }
+}
+
+/*
+ * Dark-mode remap for hard-coded Tailwind pastels.
+ * Many pages use light accent utilities (bg-blue-50, text-green-700, …) without
+ * a dark: variant. Under .dark these would stay pale and become unreadable, so
+ * we remap the soft backgrounds to translucent dark tints and the saturated
+ * text colors to lighter shades. Two-class selectors (.dark .x) outrank the
+ * single-class utilities, and !important guarantees the theme wins everywhere.
+ */
+.dark .bg-blue-50,   .dark .bg-blue-100   { background-color: rgba(59,130,246,0.14) !important; }
+.dark .bg-green-50,  .dark .bg-green-100  { background-color: rgba(34,197,94,0.14)  !important; }
+.dark .bg-purple-50, .dark .bg-purple-100 { background-color: rgba(168,85,247,0.14) !important; }
+.dark .bg-indigo-50, .dark .bg-indigo-100 { background-color: rgba(99,102,241,0.14) !important; }
+.dark .bg-orange-50, .dark .bg-orange-100 { background-color: rgba(249,115,22,0.14) !important; }
+.dark .bg-amber-50,  .dark .bg-amber-100  { background-color: rgba(245,158,11,0.14) !important; }
+.dark .bg-yellow-50, .dark .bg-yellow-100 { background-color: rgba(234,179,8,0.14)  !important; }
+.dark .bg-pink-50,   .dark .bg-pink-100   { background-color: rgba(236,72,153,0.14) !important; }
+.dark .bg-rose-50,   .dark .bg-rose-100   { background-color: rgba(244,63,94,0.14)  !important; }
+.dark .bg-red-50,    .dark .bg-red-100    { background-color: rgba(239,68,68,0.14)  !important; }
+.dark .bg-teal-50,   .dark .bg-teal-100   { background-color: rgba(20,184,166,0.14) !important; }
+.dark .bg-gray-50,   .dark .bg-gray-100,
+.dark .bg-slate-50,  .dark .bg-slate-100  { background-color: rgba(148,163,184,0.10) !important; }
+
+/* Saturated accent text → lighter shades for contrast on dark surfaces */
+.dark .text-blue-600,   .dark .text-blue-700,   .dark .text-blue-800   { color: #93c5fd !important; }
+.dark .text-green-600,  .dark .text-green-700,  .dark .text-green-800  { color: #86efac !important; }
+.dark .text-purple-600, .dark .text-purple-700, .dark .text-purple-800 { color: #d8b4fe !important; }
+.dark .text-indigo-600, .dark .text-indigo-700, .dark .text-indigo-800 { color: #a5b4fc !important; }
+.dark .text-orange-600, .dark .text-orange-700, .dark .text-orange-800 { color: #fdba74 !important; }
+.dark .text-amber-600,  .dark .text-amber-700                          { color: #fcd34d !important; }
+.dark .text-yellow-600, .dark .text-yellow-700                         { color: #fde047 !important; }
+.dark .text-red-500,    .dark .text-red-600,    .dark .text-red-700    { color: #fca5a5 !important; }
+.dark .text-rose-600,   .dark .text-rose-700                           { color: #fda4af !important; }
+.dark .text-teal-600,   .dark .text-teal-700                           { color: #5eead4 !important; }
+
+/* Soft borders → dark-friendly equivalents */
+.dark .border-blue-200,   .dark .border-blue-300   { border-color: rgba(59,130,246,0.30) !important; }
+.dark .border-green-200,  .dark .border-green-300,
+.dark .border-green-400,  .dark .border-green-500  { border-color: rgba(34,197,94,0.30)  !important; }
+.dark .border-purple-200, .dark .border-purple-300 { border-color: rgba(168,85,247,0.30) !important; }
+.dark .border-orange-200, .dark .border-orange-300,
+.dark .border-orange-400                           { border-color: rgba(249,115,22,0.30) !important; }
+.dark .border-red-200,    .dark .border-red-300,
+.dark .border-red-400                              { border-color: rgba(239,68,68,0.30)  !important; }
+.dark .border-yellow-200, .dark .border-yellow-300 { border-color: rgba(234,179,8,0.30)  !important; }
+.dark .border-purple-200                           { border-color: rgba(168,85,247,0.30) !important; }
+
+/* Gradient accent cards (profile, wellness quote, login) */
+.dark .from-purple-50 { --tw-gradient-from: rgba(168,85,247,0.12) var(--tw-gradient-from-position) !important; }
+.dark .to-indigo-50   { --tw-gradient-to:   rgba(99,102,241,0.12) var(--tw-gradient-to-position)   !important; }
+.dark .from-rose-50   { --tw-gradient-from: rgba(244,63,94,0.12)  var(--tw-gradient-from-position) !important; }
+.dark .to-orange-50   { --tw-gradient-to:   rgba(249,115,22,0.12) var(--tw-gradient-to-position)   !important; }

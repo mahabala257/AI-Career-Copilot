@@ -1,0 +1,41 @@
+# Environment / secrets
+.env
+*.env
+!.env.example
+backend/.env
+frontend/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Virtual environments
+venv/
+backend/venv/
+.venv/
+
+# ChromaDB vector store (auto-rebuilds)
+backend/chroma_store/
+
+# Uploaded files (may contain personal data)
+backend/uploads/
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build output
+dist/
+build/
+
+# Editor / tooling
+.vscode/
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
